@@ -11,9 +11,11 @@ if 'TEMPO2' in os.environ:
         obs_dat = open(path_to_obs, 'r').readlines()
         for line in obs_dat:
             if line.startswith('#') or line.startswith('\n'):
-                pass
+                continue
             else:
                 line = line.split()
+                if len(line) == 0:
+                    continue
                 telescope = line[-2].upper()
                 short_code = line[-1]
                 telescope_code_dict[telescope] = [short_code]
@@ -23,9 +25,11 @@ if 'TEMPO2' in os.environ:
         aliases = open(path_to_aliases, 'r').readlines()
         for line in aliases:
             if line.startswith('#') or line.startswith('\n'):
-                pass
+                continue
             else:
                 line = line.split()
+                if len(line) == 0:
+                    continue
                 for telescope, short_code in list(telescope_code_dict.items()):
                     if line[0] == short_code[0]:
                         for alias in line[1:]:
